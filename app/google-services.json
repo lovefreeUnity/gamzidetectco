@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "787337133556",
+    "project_id": "gamzigamzi",
+    "storage_bucket": "gamzigamzi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787337133556:android:046333cbf4ffad6ce50da1",
+        "android_client_info": {
+          "package_name": "com.example.gamzidetectco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787337133556-qna8oegvak5c82fqubvbhcgsjq5ef8oa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gamzidetectco",
+            "certificate_hash": "e581dceb4d1e95a6c7017cabfd970e63f5e8e405"
+          }
+        },
+        {
+          "client_id": "787337133556-okedsckqjlsmpufj6qikd0sg5eo5j6ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAotKKr0aRZ0jqPMyUvkVMCf78CAvWZ8vQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787337133556-okedsckqjlsmpufj6qikd0sg5eo5j6ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
