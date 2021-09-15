@@ -26,6 +26,5 @@ class MainActivity : AppCompatActivity() {
         val token = MyApplication.prefs.getString("token","")
         val userid = MyApplication.prefs.getString("uid", "")
         myRef.child(userid).child("token").setValue(token)
-
     }
 }
