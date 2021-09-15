@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
     fun Nextpage(){
         var currentUser = FirebaseAuth.getInstance().currentUser
         if(currentUser!=null){
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this,AddRasActivity::class.java))
             this.finish()
         }
     }

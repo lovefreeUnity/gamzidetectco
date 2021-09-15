@@ -4,17 +4,15 @@ import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
-data class Post(
-    var adress: String? = "",
+data class Raspost(
     var id: String? = "",
-    var name : String? = ""
+    var ppm: String? = "",
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> {
         return mapOf(
-            "adress" to adress,
             "id" to id,
-            "name" to name
+            "ppm" to ppm
         )
     }
 }
