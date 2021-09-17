@@ -1,28 +1,16 @@
 package com.example.gamzidetectco
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import com.example.gamzidetectco.databinding.ActivityAddRasBinding
-import com.google.android.gms.common.config.GservicesValue.value
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.Firebase
 
 class AddRasActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityAddRasBinding
 
-    lateinit var rasList : ArrayList<Raspost>
     val database : FirebaseDatabase = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,62 +28,68 @@ class AddRasActivity : AppCompatActivity() {
 
     }
 
-
     fun Click(){
-        binding.btnSensor.setOnClickListener {
 
             //가져올 데이터 위치
-            val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-            val myRef : DatabaseReference = database.getReference("sensorList")
+        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val myRef : DatabaseReference = database.getReference("sensorList")
 
+            //값 가져오기
+        myRef.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                //edt 중 라즈베리파이 id 입력란의  값을 가져온다.
+                val rasid = binding.edtRasid.text
 
-            //값 변동시 가져오기
-            myRef.addValueEventListener(object: ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
+                //서버의 user 가 설정한 정보 값들
+                val rasadd = binding.edtAddress.text
+                val rasname =binding.edtRasname.text
 
-                    //edt중 라즈베리파이 id입력란의 값을 가녀온다
-                    val rasid = binding.RasId.text
-                    //myRef = snapshot
+                binding.btnSensor.setOnClickListener {
+                    //sensorList 안에 id 안에 유저가 입력한 id가 있는지 있다면 그것의 id를 가져와준다.
                     val Rasid = snapshot.child(rasid.toString()).child("id").getValue()
 
-                    if (Rasid.toString().equals(rasid.toString())){//해당 id가 있다면
-                        //가져온값과 서버에있는 센서 id와 비교
-                        val ppm = snapshot.child(rasid.toString()).child("ppm").getValue()
-                        binding.tvHeader.text= Rasid.toString()
+                    if (Rasid!=null){
+                        //실제 있는 센서 id라면 그 센서의 이름을 저장
 
-                        val adrass = binding.RasAdrress.text.toString()
-                        val name = binding.RasName.text.toString()
-                        val rasId = binding.RasId.text.toString()
-                        writeNewPost(adrass,rasId,name)
+                        MyApplication.prefs.setString("rasid",Rasid.toString())
 
-                        val intent = Intent(this@AddRasActivity,RasInformationActivity::class.java)
-                        startActivity(intent)
+                        binding.tvHeader.text = Rasid.toString()
+
+
+                        //유저가 설정한 정보들 저장
+                        writeNewPost(rasadd.toString(), rasid.toString(), rasname.toString())
+                        //이동
+                        nextpage()
                     }
-
+                    }
                 }
                 override fun onCancelled(error: DatabaseError) {
-
                 }
             })
-        }
+
     }
 
-    private fun writeNewPost(adress: String, token: String, name: String) {
+    fun nextpage(){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+    }
+
+    private fun writeNewPost(adress: String, id: String, name: String) {
         val myRef : DatabaseReference = database.getReference("userList")
+        val userid = DataManager.userId
 
-        val userid = MyApplication.prefs.getString("uid", "")
+        val key = MyApplication.prefs.getString("rasid","")
 
-        val key = userid
-
-        val post = Post(adress, token, name)
+        val post = Post(adress, id, name)
         val postValues = post.toMap()
 
         //유저 설정 저장
-        val childUpdates = hashMapOf<String, Any>(
-            "/$userid/sensorList/$key" to postValues
-        )
-
-        myRef.updateChildren(childUpdates)
+        if(key!=null){
+            val childUpdates = hashMapOf<String, Any>(
+                "$userid/sensorList/$key" to postValues
+            )
+            myRef.updateChildren(childUpdates)
+        }
     }
 
 }

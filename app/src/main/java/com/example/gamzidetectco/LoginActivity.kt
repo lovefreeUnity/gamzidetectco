@@ -31,25 +31,27 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         googleSiginClient = GoogleSignIn.getClient(this, gso)
 
         binding.btnGoogle.setOnClickListener {
-            var signinIntent = googleSiginClient?.signInIntent
+            val signinIntent = googleSiginClient?.signInIntent
             startActivityForResult(signinIntent, RC_SIGN_IN)
         }
     }
     public override fun onStart(){
         super.onStart()
+        val user = Firebase.auth.currentUser
+        val userid =user?.uid
+        DataManager.userId =userid.toString()
         Nextpage()
-
     }
 
     fun Nextpage(){
-        var currentUser = FirebaseAuth.getInstance().currentUser
+        val currentUser = FirebaseAuth.getInstance().currentUser
         if(currentUser!=null){
             startActivity(Intent(this,AddRasActivity::class.java))
             this.finish()
@@ -61,11 +63,11 @@ class LoginActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener{ task->
             if (task.isSuccessful){
 
-                //uid저장
+                //uid불러오기
                 val user = Firebase.auth.currentUser
                 val userid =user?.uid
 
-                MyApplication.prefs.setString("uid",userid.toString())
+                DataManager.userId =userid.toString()
 
                 //유저 db생성
                 val database : FirebaseDatabase = FirebaseDatabase.getInstance()
