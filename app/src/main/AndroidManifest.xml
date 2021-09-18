@@ -15,9 +15,6 @@
             android:name=".TextActivity"
             android:exported="true" />
         <activity
-            android:name=".Readdata"
-            android:exported="true" />
-        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -33,7 +30,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-
         <service
             android:name=".MyFirebaseMessagingService"
             android:enabled="true"

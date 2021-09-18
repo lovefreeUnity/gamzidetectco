@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ListAdapter(private val context: Context): RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+class ListAdapter(private val context: Context, val onClick: (User) -> Unit): RecyclerView.Adapter<ListAdapter.ViewHolder>() {
     private var userList = mutableListOf<User>()
 
     fun setListData(data:MutableList<User>){
@@ -21,10 +21,7 @@ class ListAdapter(private val context: Context): RecyclerView.Adapter<ListAdapte
 
     override fun onBindViewHolder(holder: ListAdapter.ViewHolder, position: Int) {
         val user : User = userList[position]
-        holder.name.text = user.name
-        holder.id.text = user.id
-        holder.address.text = user.address
-
+        holder.bind(user)
     }
 
     override fun getItemCount(): Int {
@@ -32,10 +29,21 @@ class ListAdapter(private val context: Context): RecyclerView.Adapter<ListAdapte
     }
 
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-        val name : TextView = itemView.findViewById(R.id.tv_name)
-        val id : TextView = itemView.findViewById(R.id.tv_id)
-        val address : TextView = itemView.findViewById(R.id.tv_address)
+        fun bind(user: User) {
+            with(itemView) {
+                val name : TextView = findViewById(R.id.tv_name)
+                val id : TextView = findViewById(R.id.tv_id)
+                val address : TextView = findViewById(R.id.tv_address)
 
+                name.text = user.name
+                id.text = user.id
+                address.text = user.address
+
+                setOnClickListener {
+                    onClick(user)
+                }
+            }
+        }
     }
 
 }

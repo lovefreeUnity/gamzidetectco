@@ -46,14 +46,14 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val user = Firebase.auth.currentUser
         val userid =user?.uid
-        DataManager.userId =userid.toString()
+        MyApplication.prefs.setString("uid",userid.toString())
         Nextpage()
     }
 
     fun Nextpage(){
         val currentUser = FirebaseAuth.getInstance().currentUser
         if(currentUser!=null){
-            startActivity(Intent(this,AddRasActivity::class.java))
+            startActivity(Intent(this,TextActivity::class.java))
             this.finish()
         }
     }
@@ -67,15 +67,18 @@ class LoginActivity : AppCompatActivity() {
                 val user = Firebase.auth.currentUser
                 val userid =user?.uid
 
-                DataManager.userId =userid.toString()
+                if(userid != null){
 
-                //유저 db생성
-                val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-                val myRef : DatabaseReference = database.getReference("userList")
-
-                myRef.child(userid.toString()).child("userId").setValue(userid.toString())
-
-                Nextpage()
+                    MyApplication.prefs.setString("uid",userid.toString())
+                    //유저 db생성
+                    val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+                    val myRef : DatabaseReference = database.getReference("userList")
+                    myRef.child(userid.toString()).child("userId").setValue(userid.toString())
+                    Nextpage()
+                }
+                else{
+                    Toast.makeText(this,"오류가 발생하였습니다.",Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

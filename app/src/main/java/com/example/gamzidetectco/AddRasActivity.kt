@@ -20,27 +20,26 @@ class AddRasActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.tvHeader.setText("기기 등록")
+        binding.tvHeader.setText("기기 정보 등록")
         binding.btnSensor.setText("기기 등록")
 
+        //버튼 클릭시
         Click()
-
-
     }
 
     fun Click(){
 
-            //가져올 데이터 위치
+        //가져올 데이터 위치 지정
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val myRef : DatabaseReference = database.getReference("sensorList")
 
-            //값 가져오기
+        //값 가져오기
         myRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                //edt 중 라즈베리파이 id 입력란의  값을 가져온다.
+                // 유저가 입력란에 입력한 값을 가져온다.
                 val rasid = binding.edtRasid.text
 
-                //서버의 user 가 설정한 정보 값들
+                //이 값들을 을 서버에 보내준뒤 읽어 올것
                 val rasadd = binding.edtAddress.text
                 val rasname =binding.edtRasname.text
 
@@ -50,14 +49,21 @@ class AddRasActivity : AppCompatActivity() {
 
                     if (Rasid!=null){
                         //실제 있는 센서 id라면 그 센서의 이름을 저장
-
-                        MyApplication.prefs.setString("rasid",Rasid.toString())
-
-                        binding.tvHeader.text = Rasid.toString()
-
+                        MyApplication.prefs.setString("rasid",rasid.toString())
 
                         //유저가 설정한 정보들 저장
                         writeNewPost(rasadd.toString(), rasid.toString(), rasname.toString())
+
+                        //저장했었던 token 을 센서에 보내주자.
+                        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+                        val rasRef : DatabaseReference = database.getReference("sensorList")
+
+                        val rid =  rasid
+                        //전에 저장한 토큰을 가져온다.
+                        val token = MyApplication.prefs.getString("token","")
+                        //토큰을 센서에 보내준다.
+                        rasRef.child(rid.toString()).child("token").setValue(token)
+                        
                         //이동
                         nextpage()
                     }
@@ -68,19 +74,18 @@ class AddRasActivity : AppCompatActivity() {
             })
 
     }
-
     fun nextpage(){
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, TextActivity::class.java)
             startActivity(intent)
     }
 
-    private fun writeNewPost(adress: String, id: String, name: String) {
+    private fun writeNewPost(address: String, id: String, name: String) {
         val myRef : DatabaseReference = database.getReference("userList")
-        val userid = DataManager.userId
+        val userid = MyApplication.prefs.getString("uid","")
 
         val key = MyApplication.prefs.getString("rasid","")
 
-        val post = Post(adress, id, name)
+        val post = Post(address, id, name)
         val postValues = post.toMap()
 
         //유저 설정 저장
