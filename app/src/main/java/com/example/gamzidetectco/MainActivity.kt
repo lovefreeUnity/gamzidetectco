@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         myRef.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                var ppm = snapshot.child(rid).getValue()
+                var ppm = snapshot.child(rid).child("ppm").getValue()
                 binding.tvPpmValue.text = ppm.toString()
 
             }
