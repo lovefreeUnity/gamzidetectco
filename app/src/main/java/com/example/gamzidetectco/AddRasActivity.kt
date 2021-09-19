@@ -49,21 +49,11 @@ class AddRasActivity : AppCompatActivity() {
 
                     if (Rasid!=null){
                         //실제 있는 센서 id라면 그 센서의 이름을 저장
-                        MyApplication.prefs.setString("rasid",rasid.toString())
+
+                        MyApplication.prefs.setString("rasid",Rasid.toString())
 
                         //유저가 설정한 정보들 저장
                         writeNewPost(rasadd.toString(), rasid.toString(), rasname.toString())
-
-                        //저장했었던 token 을 센서에 보내주자.
-                        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-                        val rasRef : DatabaseReference = database.getReference("sensorList")
-
-                        val rid =  rasid
-                        //전에 저장한 토큰을 가져온다.
-                        val token = MyApplication.prefs.getString("token","")
-                        //토큰을 센서에 보내준다.
-                        rasRef.child(rid.toString()).child("token").setValue(token)
-                        
                         //이동
                         nextpage()
                     }
@@ -74,18 +64,19 @@ class AddRasActivity : AppCompatActivity() {
             })
 
     }
+
     fun nextpage(){
-            val intent = Intent(this, TextActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
     }
 
-    private fun writeNewPost(address: String, id: String, name: String) {
+    private fun writeNewPost(adress: String, id: String, name: String) {
         val myRef : DatabaseReference = database.getReference("userList")
-        val userid = MyApplication.prefs.getString("uid","")
+        val userid = DataManager.userId
 
         val key = MyApplication.prefs.getString("rasid","")
 
-        val post = Post(address, id, name)
+        val post = Post(adress, id, name)
         val postValues = post.toMap()
 
         //유저 설정 저장
