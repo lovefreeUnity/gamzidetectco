@@ -1,4 +1,4 @@
-package com.example.gamzidetectco
+package com.pcm.gamzigamzi
 
 import org.junit.Test
 

@@ -1,21 +1,17 @@
-package com.example.gamzidetectco
+package com.pcm.gamzigamzi
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gamzidetectco.databinding.ActivityAddRasBinding
-import com.example.gamzidetectco.databinding.ActivityTextBinding
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.pcm.gamzigamzi.databinding.ActivityTextBinding
 import java.util.*
 
 class TextActivity : AppCompatActivity() {
-    private lateinit var binding:ActivityTextBinding
+    private lateinit var binding: ActivityTextBinding
 
     private lateinit var adapter:ListAdapter
 

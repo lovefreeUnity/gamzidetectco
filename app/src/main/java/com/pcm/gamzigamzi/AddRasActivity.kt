@@ -1,11 +1,10 @@
-package com.example.gamzidetectco
+package com.pcm.gamzigamzi
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.gamzidetectco.databinding.ActivityAddRasBinding
+import com.pcm.gamzigamzi.databinding.ActivityAddRasBinding
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 
 class AddRasActivity : AppCompatActivity() {
 
@@ -72,7 +71,7 @@ class AddRasActivity : AppCompatActivity() {
 
     private fun writeNewPost(adress: String, id: String, name: String) {
         val myRef : DatabaseReference = database.getReference("userList")
-        val userid = DataManager.userId
+        val userid = MyApplication.prefs.getString("uid","")
 
         val key = MyApplication.prefs.getString("rasid","")
 

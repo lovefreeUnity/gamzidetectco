@@ -1,21 +1,12 @@
-package com.example.gamzidetectco
+package com.pcm.gamzigamzi
 
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TimePicker
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import com.example.gamzidetectco.databinding.ActivityMainBinding
+import com.pcm.gamzigamzi.databinding.ActivityMainBinding
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
-import kotlinx.coroutines.withTimeoutOrNull
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

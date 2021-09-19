@@ -1,4 +1,4 @@
-package com.example.gamzidetectco
+package com.pcm.gamzigamzi
 
 object DataManager {
     var rasid = ""

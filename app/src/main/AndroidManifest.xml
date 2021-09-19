@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.gamzidetectco">
+    package="com.pcm.gamzigamzi">
 
     <application
-        android:name=".MyApplication"
+        android:name="com.pcm.gamzigamzi.MyApplication"
         android:icon="@mipmap/ic_gamzigamzi"
         android:roundIcon="@mipmap/ic_gamzigamzi_round"
         android:allowBackup="true"
@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gamzidetectco">
         <activity
-            android:name=".TextActivity"
+            android:name="com.pcm.gamzigamzi.TextActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.pcm.gamzigamzi.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,13 +25,13 @@
         </activity>
 
         <activity
-            android:name=".AddRasActivity"
+            android:name="com.pcm.gamzigamzi.AddRasActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.pcm.gamzigamzi.MainActivity"
             android:exported="true" />
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name="com.pcm.gamzigamzi.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

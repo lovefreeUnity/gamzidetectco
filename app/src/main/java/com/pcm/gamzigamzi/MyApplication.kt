@@ -1,4 +1,4 @@
-package com.example.gamzidetectco
+package com.pcm.gamzigamzi
 
 import android.app.Application
 import android.content.Context
@@ -13,8 +13,6 @@ class MyApplication:Application() {
         prefs = PrefsManager(applicationContext)
         super.onCreate()
     }
-
-
 }
 
 class PrefsManager(context: Context) {

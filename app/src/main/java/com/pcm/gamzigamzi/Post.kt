@@ -1,4 +1,4 @@
-package com.example.gamzidetectco
+package com.pcm.gamzigamzi
 
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties

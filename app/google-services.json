@@ -1,23 +1,24 @@
 {
   "project_info": {
     "project_number": "787337133556",
+    "firebase_url": "https://gamzigamzi-default-rtdb.firebaseio.com",
     "project_id": "gamzigamzi",
     "storage_bucket": "gamzigamzi.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:787337133556:android:046333cbf4ffad6ce50da1",
+        "mobilesdk_app_id": "1:787337133556:android:50023c87fe220e08e50da1",
         "android_client_info": {
-          "package_name": "com.example.gamzidetectco"
+          "package_name": "com.pcm.gamzigamzi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "787337133556-qna8oegvak5c82fqubvbhcgsjq5ef8oa.apps.googleusercontent.com",
+          "client_id": "787337133556-h894ojou73mte1916hbvjlpk6ul8h28l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.gamzidetectco",
+            "package_name": "com.pcm.gamzigamzi",
             "certificate_hash": "e581dceb4d1e95a6c7017cabfd970e63f5e8e405"
           }
         },
