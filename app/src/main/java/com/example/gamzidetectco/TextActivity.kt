@@ -3,6 +3,7 @@ package com.example.gamzidetectco
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,7 +37,9 @@ class TextActivity : AppCompatActivity() {
         //클릭된 부분의 id를 받자
         adapter = ListAdapter(this) {
             val rasid = it.id
+            val rasaddress = it.address
             DataManager.rasid=rasid
+            DataManager.address=rasaddress
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             this.finish()
@@ -60,7 +63,6 @@ class TextActivity : AppCompatActivity() {
         binding.layoutFooter.btnSensors.setOnClickListener{
             val intent = Intent(this, AddRasActivity::class.java)
             startActivity(intent)
-            this.finish()
         }
     }
 }

@@ -17,7 +17,6 @@ class Repo {
         val userid =user?.uid
         val myRef = database.getReference("userList").child(userid.toString()).child("sensorList")
 
-
         myRef.addValueEventListener(object : ValueEventListener {
             val listData: MutableList<User> = mutableListOf<User>()
             override fun onDataChange(snapshot: DataSnapshot) {
