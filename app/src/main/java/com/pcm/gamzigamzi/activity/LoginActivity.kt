@@ -1,4 +1,4 @@
-package com.pcm.gamzigamzi
+package com.pcm.gamzigamzi.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +16,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.pcm.gamzigamzi.MyApplication
+import com.pcm.gamzigamzi.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -55,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
     fun Nextpage(){
         val currentUser = FirebaseAuth.getInstance().currentUser
         if(currentUser!=null){
-            startActivity(Intent(this,TextActivity::class.java))
+            startActivity(Intent(this, TextActivity::class.java))
             this.finish()
         }
     }

@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "787337133556-v92us6q8uc34fo9l56b1o0sjtjm41b4o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pcm.gamzigamzi",
+            "certificate_hash": "1abbdd240861f56e5b68e10e63dd0c27657071f4"
+          }
+        },
+        {
           "client_id": "787337133556-okedsckqjlsmpufj6qikd0sg5eo5j6ua.apps.googleusercontent.com",
           "client_type": 3
         }

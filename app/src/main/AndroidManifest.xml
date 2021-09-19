@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gamzidetectco">
         <activity
-            android:name="com.pcm.gamzigamzi.TextActivity"
+            android:name="com.pcm.gamzigamzi.activity.TextActivity"
             android:exported="true" />
         <activity
-            android:name="com.pcm.gamzigamzi.LoginActivity"
+            android:name="com.pcm.gamzigamzi.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,10 +25,10 @@
         </activity>
 
         <activity
-            android:name="com.pcm.gamzigamzi.AddRasActivity"
+            android:name="com.pcm.gamzigamzi.activity.AddRasActivity"
             android:exported="true" />
         <activity
-            android:name="com.pcm.gamzigamzi.MainActivity"
+            android:name="com.pcm.gamzigamzi.activity.MainActivity"
             android:exported="true" />
         <service
             android:name="com.pcm.gamzigamzi.MyFirebaseMessagingService"

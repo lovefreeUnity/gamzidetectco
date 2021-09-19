@@ -1,4 +1,4 @@
-package com.pcm.gamzigamzi
+package com.pcm.gamzigamzi.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,13 +7,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.pcm.gamzigamzi.DataManager
+import com.pcm.gamzigamzi.ListAdapter
+import com.pcm.gamzigamzi.ListViewModel
+import com.pcm.gamzigamzi.R
 import com.pcm.gamzigamzi.databinding.ActivityTextBinding
-import java.util.*
 
 class TextActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTextBinding
 
-    private lateinit var adapter:ListAdapter
+    private lateinit var adapter: ListAdapter
 
     private val viewModel by lazy { ViewModelProvider(this).get(ListViewModel::class.java) }
 
@@ -34,8 +37,8 @@ class TextActivity : AppCompatActivity() {
         adapter = ListAdapter(this) {
             val rasid = it.id
             val rasaddress = it.address
-            DataManager.rasid=rasid
-            DataManager.address=rasaddress
+            DataManager.rasid =rasid
+            DataManager.address =rasaddress
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             this.finish()

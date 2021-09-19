@@ -1,4 +1,4 @@
-package com.pcm.gamzigamzi
+package com.pcm.gamzigamzi.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.pcm.gamzigamzi.databinding.ActivityMainBinding
 import com.google.firebase.database.*
+import com.pcm.gamzigamzi.DataManager
+import com.pcm.gamzigamzi.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.headerText.text="현재 상황"
+        binding.headerText.text="현재 ppm수치"
         binding.tvAddress.setText(DataManager.address)
 
 
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        //저장했던 uid와 token을 서버에 보내준다.
+        //저장했던 uid와 서버에 보내준다.
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val myRef : DatabaseReference = database.getReference("sensorList")
 
@@ -46,22 +48,30 @@ class MainActivity : AppCompatActivity() {
                 binding.tvPpmValue.setText(ppm.toString())
 
                 if(ppm.toString().toInt()>=400){
-                    binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,R.color.danger))
+                    binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
+                        R.color.danger
+                    ))
                     binding.tvStatus.setText("심각")
                     binding.tvStatusLong.setText("일산화탄소 수치가 비정상적으로 높습니다.\n주변에 일산화탄소를 배출 하는 물질이 있는지 확인 하여 주시고\n 환기를 하여 주십시오")
                 }
                 else if(ppm.toString().toInt()>=200){
-                    binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,R.color.risk))
+                    binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
+                        R.color.bora
+                    ))
                     binding.tvStatus.setText("주의")
-                    binding.tvStatusLong.setText("두통이나 매스꺼움 등을 겪을 수 있습니다. 주변을 환기를 시켜 일산화탄소를 내보내 주세요")
+                    binding.tvStatusLong.setText("두통이나 매스꺼움 등을 겪을 수 있습니다.\n 주변을 환기를 시켜 일산화탄소를 내보내 주세요")
                 }
                 else if(ppm.toString().toInt()>=50){
-                    binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,R.color.caution))
+                    binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
+                        R.color.caution
+                    ))
                     binding.tvStatus.setText("관심")
-                    binding.tvStatusLong.setText("2~3시간내에 두통이 찾아올 수 있습니다.창문을 열어 환기를 시켜주십시오.")
+                    binding.tvStatusLong.setText("2~3시간내에 두통이 찾아올 수 있습니다.\n창문을 열어 환기를 시켜주십시오.")
                 }
                 else{
-                    binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,R.color.nomal))
+                    binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
+                        R.color.nomal
+                    ))
                     binding.tvStatus.setText("정상")
                     binding.tvStatusLong.setText("정상적인 일산화탄소 수치입니다.")
                 }
