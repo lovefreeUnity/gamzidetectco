@@ -4,7 +4,7 @@ import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
-data class Post(
+data class Save(
     var address: String? = "",
     var id: String? = "",
     var name : String? = ""

@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.pcm.gamzigamzi.databinding.ActivityAddRasBinding
 import com.google.firebase.database.*
 import com.pcm.gamzigamzi.MyApplication
-import com.pcm.gamzigamzi.Post
+import com.pcm.gamzigamzi.Save
 
 class AddRasActivity : AppCompatActivity() {
 
@@ -50,7 +50,6 @@ class AddRasActivity : AppCompatActivity() {
 
                     if (Rasid!=null){
                         //실제 있는 센서 id라면 그 센서의 이름을 저장
-
                         MyApplication.prefs.setString("rasid",Rasid.toString())
 
                         //그리고 토큰을 해당 센서에 보내준다.
@@ -82,7 +81,7 @@ class AddRasActivity : AppCompatActivity() {
 
         val key = MyApplication.prefs.getString("rasid","")
 
-        val post = Post(adress, id, name)
+        val post = Save(adress, id, name)
         val postValues = post.toMap()
 
         //유저 설정 저장

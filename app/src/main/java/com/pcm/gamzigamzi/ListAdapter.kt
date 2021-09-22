@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ListAdapter(private val context: Context, val onClick: (User) -> Unit): RecyclerView.Adapter<ListAdapter.ViewHolder>() {
-    private var userList = mutableListOf<User>()
+class ListAdapter(private val context: Context, val onClick: (Sensor) -> Unit): RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+    private var userList = mutableListOf<Sensor>()
 
-    fun setListData(data:MutableList<User>){
+    fun setListData(data:MutableList<Sensor>){
         userList = data
     }
 
@@ -20,8 +20,8 @@ class ListAdapter(private val context: Context, val onClick: (User) -> Unit): Re
     }
 
     override fun onBindViewHolder(holder: ListAdapter.ViewHolder, position: Int) {
-        val user : User = userList[position]
-        holder.bind(user)
+        val sensor : Sensor = userList[position]
+        holder.bind(sensor)
     }
 
     override fun getItemCount(): Int {
@@ -29,18 +29,18 @@ class ListAdapter(private val context: Context, val onClick: (User) -> Unit): Re
     }
 
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-        fun bind(user: User) {
+        fun bind(sensor: Sensor) {
             with(itemView) {
                 val name : TextView = findViewById(R.id.tv_name)
                 val id : TextView = findViewById(R.id.tv_id)
                 val address : TextView = findViewById(R.id.tv_address)
 
-                name.text = user.name
-                id.text = user.id
-                address.text = user.address
+                name.text = sensor.name
+                id.text = sensor.id
+                address.text = sensor.address
 
                 setOnClickListener {
-                    onClick(user)
+                    onClick(sensor)
                 }
             }
         }

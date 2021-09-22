@@ -10,22 +10,22 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class Repo {
-    fun getData(): LiveData<MutableList<User>> {
-        val mutableData = MutableLiveData<MutableList<User>>()
+    fun getData(): LiveData<MutableList<Sensor>> {
+        val mutableData = MutableLiveData<MutableList<Sensor>>()
         val database = Firebase.database
         val user = Firebase.auth.currentUser
         val userid =user?.uid
         val myRef = database.getReference("userList").child(userid.toString()).child("sensorList")
 
         myRef.addValueEventListener(object : ValueEventListener {
-            val listData: MutableList<User> = mutableListOf<User>()
+            val LIST_DATA: MutableList<Sensor> = mutableListOf<Sensor>()
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     for (userSnapshot in snapshot.children){
-                        val getData = userSnapshot.getValue(User::class.java)
-                        listData.add(getData!!)
+                        val getData = userSnapshot.getValue(Sensor::class.java)
+                        LIST_DATA.add(getData!!)
 
-                        mutableData.value = listData
+                        mutableData.value = LIST_DATA
                     }
                 }
             }

@@ -47,26 +47,34 @@ class MainActivity : AppCompatActivity() {
                 val ppm = snapshot.child(rid).child("ppm").getValue()
                 binding.tvPpmValue.setText(ppm.toString())
 
-                if(ppm.toString().toInt()>=400){
+
+                if(ppm.toString().toInt()>1600){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
                         R.color.danger
                     ))
                     binding.tvStatus.setText("심각")
                     binding.tvStatusLong.setText("일산화탄소 수치가 비정상적으로 높습니다.\n주변에 일산화탄소를 배출 하는 물질이 있는지 확인 하여 주시고\n 환기를 하여 주십시오")
                 }
-                else if(ppm.toString().toInt()>=200){
+                else if(ppm.toString().toInt()>800){
+                    binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
+                        R.color.danger
+                    ))
+                    binding.tvStatus.setText("심각")
+                    binding.tvStatusLong.setText("일산화탄소 수치가 비정상적으로 높습니다.\n주변에 일산화탄소를 배출 하는 물질이 있는지 확인 하여 주시고\n 환기를 하여 주십시오")
+                }
+                else if(ppm.toString().toInt()>400){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
                         R.color.bora
                     ))
                     binding.tvStatus.setText("주의")
-                    binding.tvStatusLong.setText("두통이나 매스꺼움 등을 겪을 수 있습니다.\n 주변을 환기를 시켜 일산화탄소를 내보내 주세요")
+                    binding.tvStatusLong.setText("장기간 노출 시 실신을 할 수 있습니다.\n 주변에 일산화탄소를 배출 하는 물질이 있는지 확인 하여 주시고\n 주변을 환기를 시켜 일산화탄소를 내보내 주세요")
                 }
-                else if(ppm.toString().toInt()>=50){
+                else if(ppm.toString().toInt()>=200){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
                         R.color.caution
                     ))
                     binding.tvStatus.setText("관심")
-                    binding.tvStatusLong.setText("2~3시간내에 두통이 찾아올 수 있습니다.\n창문을 열어 환기를 시켜주십시오.")
+                    binding.tvStatusLong.setText("두통을 느낄 수 있습니다.\n창문을 열어 환기를 시켜주십시오.")
                 }
                 else{
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
@@ -80,8 +88,6 @@ class MainActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
-
-
         nextPage()
     }
     fun nextPage(){
