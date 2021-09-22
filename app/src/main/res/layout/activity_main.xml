@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="title"
-            android:textSize="40dp"
+            android:textSize="40sp"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,8 +63,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="50dp"
                 android:text="n"
-                android:textColor="@color/black"
-                android:textSize="100dp" />
+                android:textColor="@color/white"
+                android:textSize="100sp" />
 
             <TextView
                 android:id="@+id/tv_ppm"
@@ -72,8 +72,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="ppm"
-                android:textColor="@color/black"
-                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:textSize="30sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -83,8 +83,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:text="정상"
-            android:textColor="@color/black"
-            android:textSize="30dp" />
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/tv_status_long"
@@ -93,8 +94,8 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="정상농도입니다."
-            android:textColor="@color/black"
-            android:textSize="15dp" />
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_footer"
@@ -110,37 +111,71 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/btn_sensors"
             >
-            <TextView
-                android:id="@+id/tv_date"
+            <LinearLayout
+                android:id="@+id/layout_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/layout_address"
+                >
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="yyyy년 mm월 day일"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="yyyy년 mm월 day일"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginBottom="30dp"
-                />
+                android:layout_marginVertical="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_date"
+                app:layout_constraintBottom_toBottomOf="@id/tv_call119"
+                >
+                <TextView
+                    android:id="@id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="address"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
             <TextView
-                android:id="@id/tv_address"
+                android:id="@+id/tv_call119"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="adress"
-                android:textSize="25dp"
+                android:text="119를 부르시겠습니까?"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="30dp"
+                android:textStyle="normal"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_address"
+                app:layout_constraintBottom_toBottomOf="parent"
                 />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_sensors"
@@ -148,7 +183,7 @@
             android:layout_height="70dp"
             android:text="센서 목록으로 돌아가기"
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textColor="@color/black"
             android:background="@color/white"
              app:layout_constraintBottom_toBottomOf="parent"

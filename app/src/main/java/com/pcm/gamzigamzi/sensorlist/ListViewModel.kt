@@ -1,4 +1,4 @@
-package com.pcm.gamzigamzi
+package com.pcm.gamzigamzi.sensorlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

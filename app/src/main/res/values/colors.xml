@@ -9,9 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="skyblue">#C3EEFF</color>
     <color name="Blue">#7FBFD9</color>
-    <color name="nomal">#DEF5EA</color>
-    <color name="caution">#D2F6FC</color>
-    <color name="risk">#FFA6A6</color>
-    <color name="danger">#E07D7D</color>
-    <color name="bora">#F4D5FF</color>
+    <color name="nomal">#8BC6FF</color>
+    <color name="caution1">#68CA6E</color>
+    <color name="caution2">#FFDF00</color>
+    <color name="danger">#FF8800</color>
+    <color name="emergency">#C73636</color>
 </resources>

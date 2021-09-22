@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pcm.gamzigamzi.DataManager
-import com.pcm.gamzigamzi.ListAdapter
-import com.pcm.gamzigamzi.ListViewModel
+import com.pcm.gamzigamzi.sensorlist.ListAdapter
+import com.pcm.gamzigamzi.sensorlist.ListViewModel
 import com.pcm.gamzigamzi.R
 import com.pcm.gamzigamzi.databinding.ActivityTextBinding
 
@@ -29,7 +29,7 @@ class TextActivity : AppCompatActivity() {
         setContentView(binding.root)
         //xml 보여지는부분
         binding.headerTitle.headerText.text = "연결된 센서 목록"
-        binding.layoutFooter.btnSensors.text = "센서 추가 및 내용 변경"
+        binding.layoutFooter.btnSensors.text = "센서 설정"
 
         nextpage()
 

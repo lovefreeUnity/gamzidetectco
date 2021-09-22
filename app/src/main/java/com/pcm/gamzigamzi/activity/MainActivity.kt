@@ -1,6 +1,7 @@
 package com.pcm.gamzigamzi.activity
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -47,34 +48,49 @@ class MainActivity : AppCompatActivity() {
                 val ppm = snapshot.child(rid).child("ppm").getValue()
                 binding.tvPpmValue.setText(ppm.toString())
 
-
-                if(ppm.toString().toInt()>1600){
+                binding.tvCall119.setOnClickListener {
+                    if(ppm.toString().toInt()>=800){
+                        val intent = Intent(Intent.ACTION_CALL)
+                        intent.data = Uri.parse("tel:")
+                        if(intent.resolveActivity(packageManager) != null){
+                        startActivity(intent)
+                        }
+                    }
+                }
+                if(ppm.toString().toInt()>3200){
+                    binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
+                        R.color.emergency
+                    ))
+                    binding.tvStatus.setText("위급상황")
+                    binding.tvStatusLong.setText("5 ~ 10분 내 두통, 매스꺼\n" + "30분 뒤 사망")
+                }
+                else if(ppm.toString().toInt()>=1600){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
                         R.color.danger
                     ))
-                    binding.tvStatus.setText("심각")
-                    binding.tvStatusLong.setText("일산화탄소 수치가 비정상적으로 높습니다.\n주변에 일산화탄소를 배출 하는 물질이 있는지 확인 하여 주시고\n 환기를 하여 주십시오")
+                    binding.tvStatus.setText("위험")
+                    binding.tvStatusLong.setText("2시간이 지나면 사망")
                 }
-                else if(ppm.toString().toInt()>800){
+                else if(ppm.toString().toInt()>=800){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
-                        R.color.danger
+                        R.color.caution2
                     ))
-                    binding.tvStatus.setText("심각")
-                    binding.tvStatusLong.setText("일산화탄소 수치가 비정상적으로 높습니다.\n주변에 일산화탄소를 배출 하는 물질이 있는지 확인 하여 주시고\n 환기를 하여 주십시오")
+                    binding.tvStatus.setText("조금 위험")
+                    binding.tvStatusLong.setText("45분에 두통, 매스꺼움, 구토\n" + "2시간 내 실신")
                 }
-                else if(ppm.toString().toInt()>400){
+                else if(ppm.toString().toInt()>=400){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
-                        R.color.bora
+                        R.color.caution1
                     ))
-                    binding.tvStatus.setText("주의")
-                    binding.tvStatusLong.setText("장기간 노출 시 실신을 할 수 있습니다.\n 주변에 일산화탄소를 배출 하는 물질이 있는지 확인 하여 주시고\n 주변을 환기를 시켜 일산화탄소를 내보내 주세요")
+                    binding.tvStatus.setText("관심")
+                    binding.tvStatusLong.setText("1 ~ 2 시간에 전두통\n" + "2.5 ~ 3시간 안에 후두통")
                 }
                 else if(ppm.toString().toInt()>=200){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
-                        R.color.caution
+                        R.color.caution1
                     ))
                     binding.tvStatus.setText("관심")
-                    binding.tvStatusLong.setText("두통을 느낄 수 있습니다.\n창문을 열어 환기를 시켜주십시오.")
+                    binding.tvStatusLong.setText("2 ~ 3시간 내 가벼운 두통")
                 }
                 else{
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
