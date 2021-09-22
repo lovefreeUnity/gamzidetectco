@@ -71,7 +71,7 @@ class AddRasActivity : AppCompatActivity() {
     }
 
     fun nextpage(){
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, TextActivity::class.java)
             startActivity(intent)
     }
 

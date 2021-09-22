@@ -24,23 +24,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.headerText.text="현재 ppm수치"
-        binding.tvAddress.setText(DataManager.address)
-
-
-        val now = System.currentTimeMillis()
-        val simpleDateFormat = SimpleDateFormat("yyyy년 MM월 dd일",Locale.KOREA).format(now)
-        binding.tvDate.text = simpleDateFormat
-
-
-
         //저장했던 uid와 서버에 보내준다.
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val myRef : DatabaseReference = database.getReference("sensorList")
 
         // 전에 저장한 rasid를 가져온다
         val rid = DataManager.rasid
+        val address= DataManager.address
+        binding.tvAddress.text =address
+        binding.headerText.text="현재 ppm수치"
 
+        val now = System.currentTimeMillis()
+        val simpleDateFormat = SimpleDateFormat("yyyy년 MM월 dd일",Locale.KOREA).format(now)
+        binding.tvDate.text = simpleDateFormat
 
         //조건에 맞춰 배경 색깔 변경
         myRef.addValueEventListener(object :ValueEventListener{
@@ -48,15 +44,14 @@ class MainActivity : AppCompatActivity() {
                 val ppm = snapshot.child(rid).child("ppm").getValue()
                 binding.tvPpmValue.setText(ppm.toString())
 
-                binding.tvCall119.setOnClickListener {
-                    if(ppm.toString().toInt()>=800){
-                        val intent = Intent(Intent.ACTION_CALL)
-                        intent.data = Uri.parse("tel:")
-                        if(intent.resolveActivity(packageManager) != null){
-                        startActivity(intent)
-                        }
-                    }
-                }
+//                if(ppm.toString().toInt()>=800){
+//                    val intent = Intent(Intent.ACTION_CALL)
+//                    intent.data = Uri.parse("tel:")
+//                    if(intent.resolveActivity(packageManager) != null){
+//                        startActivity(intent)
+//                    }
+//                }
+
                 if(ppm.toString().toInt()>3200){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
                         R.color.emergency

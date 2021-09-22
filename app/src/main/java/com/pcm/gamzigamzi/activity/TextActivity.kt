@@ -38,6 +38,7 @@ class TextActivity : AppCompatActivity() {
             val rasid = it.id
             val rasaddress = it.address
             DataManager.rasid =rasid
+
             DataManager.address =rasaddress
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
