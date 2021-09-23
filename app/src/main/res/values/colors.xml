@@ -14,4 +14,5 @@
     <color name="caution2">#FFDF00</color>
     <color name="danger">#FF8800</color>
     <color name="emergency">#C73636</color>
+    <color name="gray">#707070</color>
 </resources>

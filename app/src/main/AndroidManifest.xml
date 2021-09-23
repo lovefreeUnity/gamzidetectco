@@ -18,16 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gamzidetectco">
         <activity
-            android:name=".activity.AddCallActivity"
+            android:name=".activity.MenuActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.CallListActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.TextActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.LoadingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,13 +30,23 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.AddCallActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.TextActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.AddRasActivity"
             android:exported="true" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true" />
-        <activity android:name=".activity.SendActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".activity.SendActivity"
+            android:exported="true" />
 
         <service
             android:name=".MyFirebaseMessagingService"

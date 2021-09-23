@@ -4,10 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.telephony.SmsManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.pcm.gamzigamzi.databinding.ActivityMainBinding
 import com.google.firebase.database.*
 import com.pcm.gamzigamzi.DataManager
+import com.pcm.gamzigamzi.MyApplication
 import com.pcm.gamzigamzi.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,13 +47,18 @@ class MainActivity : AppCompatActivity() {
                 val ppm = snapshot.child(rid).child("ppm").getValue()
                 binding.tvPpmValue.setText(ppm.toString())
 
-                //119로 바꾸면 된다ㅣ.
+
+
                 if(ppm.toString().toInt()>=800){
-                    val intent = Intent(Intent.ACTION_CALL)
-                    intent.data = Uri.parse("tel:01085026710")
-                    if(intent.resolveActivity(packageManager) != null){
-                        startActivity(intent)
-                    }
+                    //전화 번호
+                    val inputText = MyApplication.prefs.getString("num","")
+
+                    //이부분이 내용
+                    val inputText2 ="감지감지\nppm농도가 800이 넘었습니다"
+
+                    if (inputText.length > 0 && inputText2.length > 0) {
+                        sendSMS(inputText, inputText2)
+                    } else Toast.makeText(baseContext, "전화번호와 메시지를 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }
 
                 if(ppm.toString().toInt()>=3200){
@@ -100,12 +108,15 @@ class MainActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
-        nextPage()
     }
-    fun nextPage(){
-        binding.btnSensors.setOnClickListener {
-            val intent = Intent(this, TextActivity::class.java)
-            startActivity(intent)
-        }
+
+    private fun sendSMS(phoneNumber: String, message: String) {
+        val sms = SmsManager.getDefault()
+        sms.sendTextMessage(phoneNumber, null, message, null, null)
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, TextActivity::class.java)
+        startActivity(intent)
     }
 }

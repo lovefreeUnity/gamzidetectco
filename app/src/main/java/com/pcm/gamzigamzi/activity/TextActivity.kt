@@ -28,10 +28,7 @@ class TextActivity : AppCompatActivity() {
         binding = ActivityTextBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //xml 보여지는부분
-        binding.headerTitle.headertext.text = "연결된 센서 목록"
-        binding.layoutFooter.btnSensors.text = "센서 설정"
-
-        nextpage()
+        binding.header.headertext.text = "연결된 센서 목록"
 
         //클릭된 부분의 id를 받자
         adapter = ListAdapter(this) {
@@ -59,10 +56,8 @@ class TextActivity : AppCompatActivity() {
         })
     }
 
-    fun nextpage(){
-        binding.layoutFooter.btnSensors.setOnClickListener{
-            val intent = Intent(this, AddRasActivity::class.java)
-            startActivity(intent)
-        }
+    override fun onBackPressed() {
+        val intent = Intent(this, MenuActivity::class.java)
+        startActivity(intent)
     }
 }

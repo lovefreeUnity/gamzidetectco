@@ -7,10 +7,11 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context=".activity.TextActivity"
+    android:gravity="center|top"
     >
 
     <include
-        android:id="@+id/header_title"
+        android:id="@+id/header"
         layout="@layout/header"
         />
     <androidx.recyclerview.widget.RecyclerView
@@ -20,9 +21,4 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         />
-    <include
-        android:id="@+id/layout_footer"
-        layout="@layout/layout_footer"
-        />
-
 </LinearLayout>

@@ -1,18 +1,16 @@
 package com.pcm.gamzigamzi.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.firebase.database.*
-import com.pcm.gamzigamzi.Addcall
 import com.pcm.gamzigamzi.MyApplication
 import com.pcm.gamzigamzi.R
 import com.pcm.gamzigamzi.databinding.ActivityAddCallBinding
 
+
 class AddCallActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddCallBinding
-
-    val database : FirebaseDatabase = FirebaseDatabase.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,21 +27,16 @@ class AddCallActivity : AppCompatActivity() {
         val name=binding.edtName.text
         val number=binding.edtCall.text
         binding.btnSensor.setOnClickListener {
-            addlist(name.toString(),number.toString())
+            MyApplication.prefs.setString("callname",name.toString())
+            MyApplication.prefs.setString("num",number.toString())
+
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
         }
     }
 
-    fun addlist(name: String, number: String){
-        val myRef : DatabaseReference = database.getReference("userList")
-        val userid = MyApplication.prefs.getString("uid","")
-
-        val post = Addcall(name,number)
-        val postValues = post.toMap()
-
-        //유저 설정 저장
-        val childUpdates = hashMapOf<String, Any>(
-            "$userid/numberList/" to postValues
-        )
-        myRef.updateChildren(childUpdates)
+    override fun onBackPressed() {
+        val intent = Intent(this, MenuActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -51,13 +51,22 @@ class LoginActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
         val userid =user?.uid
         MyApplication.prefs.setString("uid",userid.toString())
-        Nextpage()
+        if(userid!=null){
+            Nextpage()
+        }
+        else{
+            MyApplication.prefs.setString("uid","")
+            MyApplication.prefs.setString("name","")
+            MyApplication.prefs.setString("num","")
+            MyApplication.prefs.setString("rasid","")
+            Toast.makeText(this,"구글 로그인이 되어있지 않습니다.",Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun Nextpage(){
         val currentUser = FirebaseAuth.getInstance().currentUser
         if(currentUser!=null){
-            startActivity(Intent(this, TextActivity::class.java))
+            startActivity(Intent(this, MenuActivity::class.java))
             this.finish()
         }
     }
