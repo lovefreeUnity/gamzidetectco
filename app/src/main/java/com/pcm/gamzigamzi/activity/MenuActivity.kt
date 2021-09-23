@@ -1,11 +1,14 @@
 package com.pcm.gamzigamzi.activity
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -14,6 +17,7 @@ import com.google.firebase.database.*
 import com.pcm.gamzigamzi.MyApplication
 import com.pcm.gamzigamzi.R
 import com.pcm.gamzigamzi.databinding.ActivityMenuBinding
+import java.util.jar.Manifest
 
 class MenuActivity : AppCompatActivity() {
 
@@ -21,6 +25,7 @@ class MenuActivity : AppCompatActivity() {
 
     var auth : FirebaseAuth ?= null
     var googleSignInClient : GoogleSignInClient ?= null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +77,42 @@ class MenuActivity : AppCompatActivity() {
         if (name != null && number != null) {
             binding.tvNameValue.text = name
             binding.tvNumValue.text = number
+        }
+        checkPermission()
+    }
+
+    fun checkPermission(){
+        val smsPemission = ContextCompat.checkSelfPermission(this,android.Manifest.permission.SEND_SMS)
+        if(smsPemission == PackageManager.PERMISSION_GRANTED){
+            startProcess()
+        }else{
+            requestPermission()
+        }
+    }
+    fun startProcess(){
+        Toast.makeText(this,"sms를 권한 허용 완료",Toast.LENGTH_SHORT).show()
+    }
+
+    fun requestPermission(){
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.SEND_SMS),99)
+    }
+
+    override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when(requestCode){
+            99->{
+                if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    startProcess()
+                }else{
+                    Toast.makeText(this,"권한을 승인하지 않으면 앱이 종류됩니다.",Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
         }
     }
 }

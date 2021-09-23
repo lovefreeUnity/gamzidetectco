@@ -6,7 +6,9 @@ import android.content.Context
 import android.media.RingtoneManager
 import android.os.Build
 import android.provider.Settings
+import android.telephony.SmsManager
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -31,6 +33,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val data = remoteMessage.data
         if (title != null && body != null) {
             sendNotification(title, body, data)
+            //전화 번호
+            val inputText = MyApplication.prefs.getString("num","")
+            //이부분이 내용
+            val address = MyApplication.prefs.getString("address","")
+            val inputText2 = "감지감지\n지인분의 $address 에 일산화탄소 수치가 높습니다."
+
+            if (inputText.length > 0 && inputText2.length > 0) {
+                sendSMS(inputText, inputText2)
+            }
         } else {
             Log.e(TAG, "onMessageReceived: title: $title, body: $body, data: $data")
         }
@@ -63,5 +74,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
 
         notificationManager.notify(System.currentTimeMillis().toInt(), notificationBuilder.build())
+    }
+    private fun sendSMS(phoneNumber: String, message: String) {
+        val sms = SmsManager.getDefault()
+        sms.sendTextMessage(phoneNumber, null, message, null, null)
     }
 }

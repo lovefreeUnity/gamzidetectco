@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pcm.gamzigamzi.DataManager
+import com.pcm.gamzigamzi.MyApplication
 import com.pcm.gamzigamzi.sensorlist.ListAdapter
 import com.pcm.gamzigamzi.sensorlist.ListViewModel
 import com.pcm.gamzigamzi.R
@@ -37,6 +38,7 @@ class TextActivity : AppCompatActivity() {
             DataManager.rasid =rasid
 
             DataManager.address =rasaddress
+            MyApplication.prefs.setString("address",rasaddress)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             this.finish()

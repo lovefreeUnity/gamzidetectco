@@ -27,14 +27,13 @@ class AddCallActivity : AppCompatActivity() {
         val name=binding.edtName.text
         val number=binding.edtCall.text
         binding.btnSensor.setOnClickListener {
-            MyApplication.prefs.setString("callname",name.toString())
+            MyApplication.prefs.setString("name",name.toString())
             MyApplication.prefs.setString("num",number.toString())
 
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
         }
     }
-
     override fun onBackPressed() {
         val intent = Intent(this, MenuActivity::class.java)
         startActivity(intent)

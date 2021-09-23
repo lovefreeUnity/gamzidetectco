@@ -48,19 +48,6 @@ class MainActivity : AppCompatActivity() {
                 binding.tvPpmValue.setText(ppm.toString())
 
 
-
-                if(ppm.toString().toInt()>=800){
-                    //전화 번호
-                    val inputText = MyApplication.prefs.getString("num","")
-
-                    //이부분이 내용
-                    val inputText2 ="감지감지\nppm농도가 800이 넘었습니다"
-
-                    if (inputText.length > 0 && inputText2.length > 0) {
-                        sendSMS(inputText, inputText2)
-                    } else Toast.makeText(baseContext, "전화번호와 메시지를 입력해주세요.", Toast.LENGTH_SHORT).show()
-                }
-
                 if(ppm.toString().toInt()>=3200){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
                         R.color.emergency
@@ -108,11 +95,6 @@ class MainActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
-    }
-
-    private fun sendSMS(phoneNumber: String, message: String) {
-        val sms = SmsManager.getDefault()
-        sms.sendTextMessage(phoneNumber, null, message, null, null)
     }
 
     override fun onBackPressed() {
