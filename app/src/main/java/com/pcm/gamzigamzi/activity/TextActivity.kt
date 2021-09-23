@@ -28,7 +28,7 @@ class TextActivity : AppCompatActivity() {
         binding = ActivityTextBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //xml 보여지는부분
-        binding.headerTitle.headerText.text = "연결된 센서 목록"
+        binding.headerTitle.headertext.text = "연결된 센서 목록"
         binding.layoutFooter.btnSensors.text = "센서 설정"
 
         nextpage()

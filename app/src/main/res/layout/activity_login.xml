@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.LoginActivity">
     <include
-        android:id="@+id/layout_header"
+        android:id="@+id/layoutheader"
         layout="@layout/header"
         />
     <ImageView

@@ -44,20 +44,21 @@ class MainActivity : AppCompatActivity() {
                 val ppm = snapshot.child(rid).child("ppm").getValue()
                 binding.tvPpmValue.setText(ppm.toString())
 
-//                if(ppm.toString().toInt()>=800){
-//                    val intent = Intent(Intent.ACTION_CALL)
-//                    intent.data = Uri.parse("tel:")
-//                    if(intent.resolveActivity(packageManager) != null){
-//                        startActivity(intent)
-//                    }
-//                }
+                //119로 바꾸면 된다ㅣ.
+                if(ppm.toString().toInt()>=800){
+                    val intent = Intent(Intent.ACTION_CALL)
+                    intent.data = Uri.parse("tel:01085026710")
+                    if(intent.resolveActivity(packageManager) != null){
+                        startActivity(intent)
+                    }
+                }
 
-                if(ppm.toString().toInt()>3200){
+                if(ppm.toString().toInt()>=3200){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
                         R.color.emergency
                     ))
                     binding.tvStatus.setText("위급상황")
-                    binding.tvStatusLong.setText("5 ~ 10분 내 두통, 매스꺼\n" + "30분 뒤 사망")
+                    binding.tvStatusLong.setText("5 ~ 10분 내 두통, 매스꺼움\n" + "30분 뒤 사망")
                 }
                 else if(ppm.toString().toInt()>=1600){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
