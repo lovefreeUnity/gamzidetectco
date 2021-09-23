@@ -2,6 +2,7 @@ package com.pcm.gamzigamzi.activity
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.SmsManager
@@ -14,6 +15,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
+import com.pcm.gamzigamzi.DataManager
 import com.pcm.gamzigamzi.MyApplication
 import com.pcm.gamzigamzi.R
 import com.pcm.gamzigamzi.databinding.ActivityMenuBinding
@@ -23,11 +27,14 @@ class MenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMenuBinding
 
+    val mContext = this
+
     var auth : FirebaseAuth ?= null
     var googleSignInClient : GoogleSignInClient ?= null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
@@ -51,7 +58,6 @@ class MenuActivity : AppCompatActivity() {
             this.finish()
         }
 
-
         var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -65,7 +71,10 @@ class MenuActivity : AppCompatActivity() {
         google_sign_out_button.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             googleSignInClient?.signOut()
-
+            MyApplication.prefs.setString("uid","")
+            MyApplication.prefs.setString("name","")
+            MyApplication.prefs.setString("num","")
+            MyApplication.prefs.setString("rasid","")
             var logoutIntent = Intent (this, MainActivity::class.java)
             logoutIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(logoutIntent)
@@ -77,6 +86,11 @@ class MenuActivity : AppCompatActivity() {
         if (name != null && number != null) {
             binding.tvNameValue.text = name
             binding.tvNumValue.text = number
+            val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+            val Ref: DatabaseReference = database.getReference("userList")
+            val uid = MyApplication.prefs.getString("uid","")
+            Ref.child(uid).child("number").setValue(number)
+            callfriend()
         }
         checkPermission()
     }
@@ -114,5 +128,37 @@ class MenuActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    private fun callfriend(){
+        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+        val myRef: DatabaseReference = database.getReference("sensorList")
+
+        val rid = MyApplication.prefs.getString("rasid", "")
+
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val ppm = snapshot.child(rid).child("ppm").getValue()
+                if(ppm.toString().toInt()>=800){
+                    val input = MyApplication.prefs.getString("num", "")
+                    val permissionListener = object : PermissionListener {
+                        override fun onPermissionGranted() {
+                            val myUri = Uri.parse("tel:${input}")
+                            val myIntent = Intent(Intent.ACTION_CALL, myUri)
+                            startActivity(myIntent)
+                        }
+
+                        override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+                        }
+                    }
+                    TedPermission.with(mContext).setPermissionListener(permissionListener)
+                        .setDeniedMessage("[설정] 에서 권한을 열어줘야 전화 연결이 가능합니다.")
+                        .setPermissions(android.Manifest.permission.CALL_PHONE)
+                        .check()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
     }
 }

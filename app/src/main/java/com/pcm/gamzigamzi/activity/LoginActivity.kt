@@ -55,10 +55,6 @@ class LoginActivity : AppCompatActivity() {
             Nextpage()
         }
         else{
-            MyApplication.prefs.setString("uid","")
-            MyApplication.prefs.setString("name","")
-            MyApplication.prefs.setString("num","")
-            MyApplication.prefs.setString("rasid","")
             Toast.makeText(this,"구글 로그인이 되어있지 않습니다.",Toast.LENGTH_SHORT).show()
         }
     }

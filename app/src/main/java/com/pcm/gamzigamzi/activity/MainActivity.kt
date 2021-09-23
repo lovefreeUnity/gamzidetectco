@@ -41,12 +41,14 @@ class MainActivity : AppCompatActivity() {
         val simpleDateFormat = SimpleDateFormat("yyyy년 MM월 dd일",Locale.KOREA).format(now)
         binding.tvDate.text = simpleDateFormat
 
+
+        val number = MyApplication.prefs.getString("num", "")
+
         //조건에 맞춰 배경 색깔 변경
         myRef.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val ppm = snapshot.child(rid).child("ppm").getValue()
                 binding.tvPpmValue.setText(ppm.toString())
-
 
                 if(ppm.toString().toInt()>=3200){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
@@ -101,4 +103,5 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, TextActivity::class.java)
         startActivity(intent)
     }
+
 }

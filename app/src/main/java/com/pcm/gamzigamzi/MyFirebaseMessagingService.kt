@@ -33,14 +33,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val data = remoteMessage.data
         if (title != null && body != null) {
             sendNotification(title, body, data)
-            //전화 번호
-            val inputText = MyApplication.prefs.getString("num","")
-            //이부분이 내용
-            val address = MyApplication.prefs.getString("address","")
-            val inputText2 = "감지감지\n지인분의 $address 에 일산화탄소 수치가 높습니다."
+            val name = MyApplication.prefs.getString("name", "")
+            val number = MyApplication.prefs.getString("num", "")
+            if(name != null && number != null){
+                //전화 번호
+                val inputText = MyApplication.prefs.getString("num","")
+                //이부분이 내용
+                val address = MyApplication.prefs.getString("address","")
+                val inputText2 = "감지감지\n지인분의 $address 에 일산화탄소 수치가 높습니다."
 
-            if (inputText.length > 0 && inputText2.length > 0) {
-                sendSMS(inputText, inputText2)
+                if (inputText.length > 0 && inputText2.length > 0) {
+                    sendSMS(inputText, inputText2)
+                }
             }
         } else {
             Log.e(TAG, "onMessageReceived: title: $title, body: $body, data: $data")
