@@ -1,11 +1,13 @@
 package com.pcm.gamzigamzi.activity
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.pcm.gamzigamzi.databinding.ActivityMainBinding
 import com.google.firebase.database.*
@@ -42,14 +44,21 @@ class MainActivity : AppCompatActivity() {
         binding.tvDate.text = simpleDateFormat
 
 
-        val number = MyApplication.prefs.getString("num", "")
 
         //조건에 맞춰 배경 색깔 변경
         myRef.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val ppm = snapshot.child(rid).child("ppm").getValue()
                 binding.tvPpmValue.setText(ppm.toString())
-
+//                if(ppm.toString().toInt()>=800){
+//                    val number = MyApplication.prefs.getString("num", "")
+//                    val ppm = binding.tvPpmValue.text.toString()
+//                    if(ppm.toInt()>=800) {
+//                        val myUri = Uri.parse("tel:${number}")
+//                        val myIntent = Intent(Intent.ACTION_CALL, myUri)
+//                        startActivity(myIntent)
+//                    }
+//                }
                 if(ppm.toString().toInt()>=3200){
                     binding.root.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
                         R.color.emergency
@@ -99,9 +108,43 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    override fun onBackPressed() {
-        val intent = Intent(this, TextActivity::class.java)
-        startActivity(intent)
-    }
+//    fun checkPermission(){
+//        val smsPemission = ContextCompat.checkSelfPermission(this,android.Manifest.permission.CALL_PHONE)
+//        if(smsPemission == PackageManager.PERMISSION_GRANTED){
+//            startProcess()
+//        }else{
+//            requestPermission()
+//        }
+//    }
+//    fun startProcess(){
+//        Toast.makeText(this,"전화걸기 허용 완료",Toast.LENGTH_SHORT).show()
+//    }
+//
+//    fun requestPermission(){
+//        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE),98)
+//    }
+//
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//
+//        when(requestCode){
+//            98->{
+//                if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+//                    startProcess()
+//                }else{
+//                    Toast.makeText(this,"권한을 승인하지 않으면 자동신고기능을 사용할 수 없습니다..",Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
+//    }
+//
+//    override fun onBackPressed() {
+//        val intent = Intent(this, TextActivity::class.java)
+//        startActivity(intent)
+//    }
 
 }

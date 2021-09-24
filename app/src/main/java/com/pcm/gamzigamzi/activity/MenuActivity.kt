@@ -90,7 +90,6 @@ class MenuActivity : AppCompatActivity() {
             val Ref: DatabaseReference = database.getReference("userList")
             val uid = MyApplication.prefs.getString("uid","")
             Ref.child(uid).child("number").setValue(number)
-            callfriend()
         }
         checkPermission()
     }
@@ -129,36 +128,40 @@ class MenuActivity : AppCompatActivity() {
             }
         }
     }
-    private fun callfriend(){
-        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-        val myRef: DatabaseReference = database.getReference("sensorList")
-
-        val rid = MyApplication.prefs.getString("rasid", "")
-
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val ppm = snapshot.child(rid).child("ppm").getValue()
-                if(ppm.toString().toInt()>=800){
-                    val input = MyApplication.prefs.getString("num", "")
-                    val permissionListener = object : PermissionListener {
-                        override fun onPermissionGranted() {
-                            val myUri = Uri.parse("tel:${input}")
-                            val myIntent = Intent(Intent.ACTION_CALL, myUri)
-                            startActivity(myIntent)
-                        }
-
-                        override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                        }
-                    }
-                    TedPermission.with(mContext).setPermissionListener(permissionListener)
-                        .setDeniedMessage("[설정] 에서 권한을 열어줘야 전화 연결이 가능합니다.")
-                        .setPermissions(android.Manifest.permission.CALL_PHONE)
-                        .check()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
-    }
+//    private fun callfriend(){
+//        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+//        val myRef: DatabaseReference = database.getReference("sensorList")
+//
+//        val rid = MyApplication.prefs.getString("rasid", "")
+//
+//        if(rid!=null){
+//            myRef.addValueEventListener(object : ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    val ppm = snapshot.child(rid).child("ppm").getValue()
+//                    if(ppm.toString().toInt()>=800){
+//                        val input = MyApplication.prefs.getString("num", "")
+//                        if(input != null){
+//                            val permissionListener = object : PermissionListener {
+//                                override fun onPermissionGranted() {
+//                                    val myUri = Uri.parse("tel:${input}")
+//                                    val myIntent = Intent(Intent.ACTION_CALL, myUri)
+//                                    startActivity(myIntent)
+//                                }
+//
+//                                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+//                                }
+//                            }
+//                            TedPermission.with(mContext).setPermissionListener(permissionListener)
+//                                .setDeniedMessage("[설정] 에서 권한을 열어줘야 전화 연결이 가능합니다.")
+//                                .setPermissions(android.Manifest.permission.CALL_PHONE)
+//                                .check()
+//                        }
+//                    }
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                }
+//            })
+//        }
+//    }
 }
