@@ -35,14 +35,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Log.d(TAG, "Notification Message Body: " + remoteMessage.notification?.body!!)
 
         if(p0.data.isNotEmpty()){
-            val number = MyApplication.prefs.getString("num", "")
-            if(p0.data["body"].toString().equals("감지감지 심각")&&number != null){
-                val address = MyApplication.prefs.getString("address","")
-                val messages = "감지감지\n지인분의 $address 에 일산화탄소 수치가 높습니다."
-                if (number.length > 0 && messages.length > 0) {
-                    sendSMS(number, messages)
-                }
-            }
+//            val number = MyApplication.prefs.getString("num", "")
+//            if(p0.data["body"].toString().equals("감지감지 심각")&&number != null){
+//                val address = MyApplication.prefs.getString("address","")
+//                val messages = "감지감지\n지인분의 $address 에 일산화탄소 수치가 높습니다."
+//                if (number.length > 0 && messages.length > 0) {
+//                    sendSMS(number, messages)
+//                }
+//            }
             sendNotification(p0)
         }
         else {

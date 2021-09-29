@@ -1,13 +1,8 @@
 package com.pcm.gamzigamzi.activity
 
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.telephony.SmsManager
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.pcm.gamzigamzi.databinding.ActivityMainBinding
 import com.google.firebase.database.*
@@ -43,20 +38,21 @@ class MainActivity : AppCompatActivity() {
         val simpleDateFormat = SimpleDateFormat("yyyy년 MM월 dd일",Locale.KOREA).format(now)
         binding.tvDate.text = simpleDateFormat
 
-
+//        val check =MyApplication.prefs.getString("check","")
+//        checkPermission()
 
         //조건에 맞춰 배경 색깔 변경
         myRef.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val ppm = snapshot.child(rid).child("ppm").getValue()
                 binding.tvPpmValue.setText(ppm.toString())
-//                if(ppm.toString().toInt()>=800){
-//                    val number = MyApplication.prefs.getString("num", "")
-//                    val ppm = binding.tvPpmValue.text.toString()
-//                    if(ppm.toInt()>=800) {
+//                if(check.equals("1")){
+//                    if(ppm.toString().toInt()>=800){
+//                        val number = MyApplication.prefs.getString("num", "")
 //                        val myUri = Uri.parse("tel:${number}")
 //                        val myIntent = Intent(Intent.ACTION_CALL, myUri)
 //                        startActivity(myIntent)
+//
 //                    }
 //                }
                 if(ppm.toString().toInt()>=3200){
@@ -115,15 +111,16 @@ class MainActivity : AppCompatActivity() {
 //        }else{
 //            requestPermission()
 //        }
-//    }
+////    }
 //    fun startProcess(){
 //        Toast.makeText(this,"전화걸기 허용 완료",Toast.LENGTH_SHORT).show()
+//        MyApplication.prefs.setString("check","1")
 //    }
 //
 //    fun requestPermission(){
 //        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE),98)
 //    }
-//
+
 //    override fun onRequestPermissionsResult(
 //        requestCode: Int,
 //        permissions: Array<out String>,
@@ -141,10 +138,11 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 //    }
-//
-//    override fun onBackPressed() {
-//        val intent = Intent(this, TextActivity::class.java)
-//        startActivity(intent)
-//    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, TextActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
 }

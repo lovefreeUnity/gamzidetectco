@@ -75,7 +75,8 @@ class MenuActivity : AppCompatActivity() {
             MyApplication.prefs.setString("name","")
             MyApplication.prefs.setString("num","")
             MyApplication.prefs.setString("rasid","")
-            var logoutIntent = Intent (this, MainActivity::class.java)
+            MyApplication.prefs.setString("num", "")
+            val logoutIntent = Intent (this, LoginActivity::class.java)
             logoutIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(logoutIntent)
         }
@@ -86,82 +87,42 @@ class MenuActivity : AppCompatActivity() {
         if (name != null && number != null) {
             binding.tvNameValue.text = name
             binding.tvNumValue.text = number
-            val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-            val Ref: DatabaseReference = database.getReference("userList")
-            val uid = MyApplication.prefs.getString("uid","")
-            Ref.child(uid).child("number").setValue(number)
         }
-        checkPermission()
+//        checkPermission()
     }
-
-    fun checkPermission(){
-        val smsPemission = ContextCompat.checkSelfPermission(this,android.Manifest.permission.SEND_SMS)
-        if(smsPemission == PackageManager.PERMISSION_GRANTED){
-            startProcess()
-        }else{
-            requestPermission()
-        }
-    }
-    fun startProcess(){
-        Toast.makeText(this,"sms를 권한 허용 완료",Toast.LENGTH_SHORT).show()
-    }
-
-    fun requestPermission(){
-        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.SEND_SMS),99)
-    }
-
-    override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        when(requestCode){
-            99->{
-                if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                    startProcess()
-                }else{
-                    Toast.makeText(this,"권한을 승인하지 않으면 앱이 종류됩니다.",Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-            }
-        }
-    }
-//    private fun callfriend(){
-//        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-//        val myRef: DatabaseReference = database.getReference("sensorList")
 //
-//        val rid = MyApplication.prefs.getString("rasid", "")
+//    fun checkPermission(){
+//        val smsPemission = ContextCompat.checkSelfPermission(this,android.Manifest.permission.SEND_SMS)
+//        if(smsPemission == PackageManager.PERMISSION_GRANTED){
+//            startProcess()
+//        }else{
+//            requestPermission()
+//        }
+//    }
+//    fun startProcess(){
+//        Toast.makeText(this,"sms를 권한 허용 완료",Toast.LENGTH_SHORT).show()
+//    }
 //
-//        if(rid!=null){
-//            myRef.addValueEventListener(object : ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    val ppm = snapshot.child(rid).child("ppm").getValue()
-//                    if(ppm.toString().toInt()>=800){
-//                        val input = MyApplication.prefs.getString("num", "")
-//                        if(input != null){
-//                            val permissionListener = object : PermissionListener {
-//                                override fun onPermissionGranted() {
-//                                    val myUri = Uri.parse("tel:${input}")
-//                                    val myIntent = Intent(Intent.ACTION_CALL, myUri)
-//                                    startActivity(myIntent)
-//                                }
+//    fun requestPermission(){
+//        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.SEND_SMS),99)
+//    }
 //
-//                                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-//                                }
-//                            }
-//                            TedPermission.with(mContext).setPermissionListener(permissionListener)
-//                                .setDeniedMessage("[설정] 에서 권한을 열어줘야 전화 연결이 가능합니다.")
-//                                .setPermissions(android.Manifest.permission.CALL_PHONE)
-//                                .check()
-//                        }
-//                    }
+//    override fun onRequestPermissionsResult(
+//            requestCode: Int,
+//            permissions: Array<out String>,
+//            grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//
+//        when(requestCode){
+//            99->{
+//                if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+//                    startProcess()
+//                }else{
+//                    Toast.makeText(this,"권한을 승인하지 않으면 앱이 종류됩니다.",Toast.LENGTH_SHORT).show()
+//                    finish()
 //                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                }
-//            })
+//            }
 //        }
 //    }
 }
